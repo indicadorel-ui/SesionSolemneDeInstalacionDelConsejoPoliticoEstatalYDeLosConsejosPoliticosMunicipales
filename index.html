@@ -8,8 +8,7 @@
   <!-- Fuente Google Sans -->
   <link href="https://fonts.cdnfonts.com/css/google-sans" rel="stylesheet">
 
-  <!-- Librerías de QR e Imagen -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- Librería para descargar imagen -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
@@ -294,7 +293,7 @@
       </div>
 
       <div class="qr-box">
-        <div id="qrcode"></div>
+        <img id="qrcodeImg" src="" alt="Código QR" width="180" height="180">
       </div>
 
       <div class="user-name" id="cardFullName">NOMBRE COMPLETO</div>
@@ -315,7 +314,6 @@
 
     const form = document.getElementById('regForm');
     const passCard = document.getElementById('passCard');
-    const qrContainer = document.getElementById('qrcode');
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -357,18 +355,17 @@
         municipio: municipio
       };
 
-      // 2. ENVIAR A GOOGLE SHEETS DE FORMA INSTANTÁNEA (Sin bloquear la página)
+      // 2. ENVIAR A GOOGLE SHEETS EN SEGUNDO PLANO
       const blob = new Blob([JSON.stringify(datosRegistro)], { type: 'text/plain' });
       navigator.sendBeacon(SCRIPT_URL, blob);
 
-      // 3. MOSTRAR EL QR Y LA TARJETA AL INSTANTE
-      qrContainer.innerHTML = "";
-      new QRCode(qrContainer, {
-        text: `ID:${folioUnico}|NOMBRE:${nombreCompleto}|TEL:${telefono}`,
-        width: 180,
-        height: 180
-      });
+      // 3. GENERAR QR DIRECTAMENTE CON API EXTERNA (IMPOSIBLE DE CONGELAR)
+      const textoQR = `ID:${folioUnico}|NOMBRE:${nombreCompleto}|TEL:${telefono}`;
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(textoQR)}`;
+      
+      document.getElementById('qrcodeImg').src = qrUrl;
 
+      // 4. LLENAR TEXTOS Y MOSTRAR TARJETA
       document.getElementById('cardFullName').innerText = nombreCompleto;
       document.getElementById('cardRole').innerText = `${cargo} · ${municipio}`;
 
@@ -376,12 +373,12 @@
       passCard.style.display = 'block';
     });
 
-    // 4. Descargar Pase como Imagen PNG
+    // 5. Descargar Pase como Imagen PNG
     document.getElementById('downloadBtn').addEventListener('click', function() {
       const downloadBtn = document.getElementById('downloadBtn');
       downloadBtn.style.display = 'none';
 
-      html2canvas(passCard, { scale: 2 }).then(canvas => {
+      html2canvas(passCard, { scale: 2, useCORS: true }).then(canvas => {
         const link = document.createElement('a');
         link.download = 'Pase_Acceso_Evento.png';
         link.href = canvas.toDataURL('image/png');
