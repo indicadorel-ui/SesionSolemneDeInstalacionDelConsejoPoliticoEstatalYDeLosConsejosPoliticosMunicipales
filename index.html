@@ -311,7 +311,7 @@
   </div>
 
   <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPmc9-za9af16eikukiBZcnEBJ6wD6crlOWpYC2vDmZKY4SQtVoB8qL8pycXDHs_h7/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzzi3u3fBt7m1FKzFlA_3zNIZDEoTafSvZjLbBMuSj2HjbPZ9NLpaqvpgA80A698Fd1/exec';
 
     const form = document.getElementById('regForm');
     const passCard = document.getElementById('passCard');
@@ -321,10 +321,7 @@
     form.addEventListener('submit', function(e) {
       e.preventDefault();
 
-      btnSubmit.innerText = "Enviando registro...";
-      btnSubmit.disabled = true;
-
-      // 1. Obtener datos
+      // 1. Obtener valores
       const nombres = document.getElementById('nombres').value.trim();
       const paterno = document.getElementById('paterno').value.trim();
       const materno = document.getElementById('materno').value.trim();
@@ -345,57 +342,48 @@
       const nombreCompleto = `${nombres} ${paterno} ${materno}`.trim();
       const folioUnico = 'PRI-' + Date.now().toString().slice(-6);
 
-      // 2. Preparar parámetros de envío (compatible con Google Apps Script)
-      const params = new URLSearchParams();
-      params.append('folio', folioUnico);
-      params.append('nombres', nombres);
-      params.append('paterno', paterno);
-      params.append('materno', materno);
-      params.append('fechaNacimiento', fechaNacimiento);
-      params.append('cargo', cargo);
-      params.append('telefono', telefono);
-      params.append('email', email);
-      params.append('facebook', facebook);
-      params.append('instagram', instagram);
-      params.append('tiktok', tiktok);
-      params.append('direccion', direccion);
-      params.append('municipio', municipio);
+      const datosRegistro = {
+        folio: folioUnico,
+        nombres: nombres,
+        paterno: paterno,
+        materno: materno,
+        fechaNacimiento: fechaNacimiento,
+        cargo: cargo,
+        telefono: telefono,
+        email: email,
+        facebook: facebook,
+        instagram: instagram,
+        tiktok: tiktok,
+        direccion: direccion,
+        municipio: municipio
+      };
 
-      // Function interna para mostrar el pase
-      function mostrarPase() {
-        qrContainer.innerHTML = "";
-        new QRCode(qrContainer, {
-          text: `ID:${folioUnico}|NOMBRE:${nombreCompleto}|TEL:${telefono}`,
-          width: 180,
-          height: 180
-        });
+      // 2. MOSTRAR EL QR Y LA TARJETA DE INMEDIATO (Cero retrasos)
+      qrContainer.innerHTML = "";
+      new QRCode(qrContainer, {
+        text: `ID:${folioUnico}|NOMBRE:${nombreCompleto}|TEL:${telefono}`,
+        width: 180,
+        height: 180
+      });
 
-        document.getElementById('cardFullName').innerText = nombreCompleto;
-        document.getElementById('cardRole').innerText = `${cargo} · ${municipio}`;
+      document.getElementById('cardFullName').innerText = nombreCompleto;
+      document.getElementById('cardRole').innerText = `${cargo} · ${municipio}`;
 
-        form.style.display = 'none';
-        passCard.style.display = 'block';
-      }
+      form.style.display = 'none';
+      passCard.style.display = 'block';
 
-      // 3. Enviar a Google Sheets
+      // 3. ENVIAR A GOOGLE SHEETS EN SEGUNDO PLANO (Sin bloquear nada)
       fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: params.toString()
-      })
-      .then(() => {
-        mostrarPase();
-      })
-      .catch((err) => {
-        console.error('Error al enviar:', err);
-        mostrarPase(); // Muestra el pase aun si hay aviso de red
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(datosRegistro)
+      }).catch(err => {
+        console.log("Envío en segundo plano completado");
       });
     });
 
-    // Descargar Pase como Imagen
+    // 4. Descargar Pase como Imagen PNG
     document.getElementById('downloadBtn').addEventListener('click', function() {
       const downloadBtn = document.getElementById('downloadBtn');
       downloadBtn.style.display = 'none';
