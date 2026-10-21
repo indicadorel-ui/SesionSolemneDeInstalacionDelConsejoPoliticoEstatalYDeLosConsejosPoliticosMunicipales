@@ -309,8 +309,7 @@
       </button>
     </div>
   </div>
-
-  <script>
+<script>
     // URL DE TU SCRIPT DE GOOGLE SHEETS ACTUALIZADA
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz4Y4puJgCGI9zvk4u1kHLPKHVOMv-q4h6t8cYzMhG83eeEg1S7z2_lmadd62jX2krZ/exec';
 
@@ -325,7 +324,7 @@
       btnSubmit.innerText = "Generando...";
       btnSubmit.disabled = true;
 
-      // 1. Obtener valores
+      // 1. Obtener valores del formulario
       const nombres = document.getElementById('nombres').value.trim();
       const paterno = document.getElementById('paterno').value.trim();
       const materno = document.getElementById('materno').value.trim();
@@ -362,19 +361,7 @@
         municipio: municipio
       };
 
-      // 2. Enviar datos a Google Sheets en segundo plano
-     try {
-        fetch(SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(datosRegistro)
-        });
-      } catch (err) {
-        console.log("Error enviando datos:", err);
-         }
-
-      // 3. Generar Código QR
+      // 2. Generar Código QR de inmediato
       qrContainer.innerHTML = "";
       new QRCode(qrContainer, {
         text: `ID:${folioUnico}|NOMBRE:${nombreCompleto}|TEL:${telefono}`,
@@ -382,13 +369,25 @@
         height: 180
       });
 
-      // 4. Llenar los campos visuales de la tarjeta
+      // 3. Llenar la tarjeta visual
       document.getElementById('cardFullName').innerText = nombreCompleto;
       document.getElementById('cardRole').innerText = `${cargo} · ${municipio}`;
 
-      // 5. Ocultar el formulario y mostrar el pase
+      // 4. Ocultar el formulario y mostrar la tarjeta de acceso
       form.style.display = 'none';
       passCard.style.display = 'block';
+
+      // 5. Enviar datos a Google Sheets en segundo plano sin congelar la interfaz
+      try {
+        fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(datosRegistro)
+        });
+      } catch (err) {
+        console.log("Error al enviar registro:", err);
+      }
     });
 
     // 6. Descargar Pase como Imagen PNG
