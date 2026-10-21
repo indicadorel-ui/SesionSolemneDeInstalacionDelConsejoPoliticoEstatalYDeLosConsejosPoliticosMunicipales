@@ -311,12 +311,11 @@
   </div>
 
   <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzzi3u3fBt7m1FKzFlA_3zNIZDEoTafSvZjLbBMuSj2HjbPZ9NLpaqvpgA80A698Fd1/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz4Y4puJgCGI9zvk4u1kHLPKHVOMv-q4h6t8cYzMhG83eeEg1S7z2_lmadd62jX2krZ/exec';
 
     const form = document.getElementById('regForm');
     const passCard = document.getElementById('passCard');
     const qrContainer = document.getElementById('qrcode');
-    const btnSubmit = document.getElementById('btnSubmit');
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -358,7 +357,11 @@
         municipio: municipio
       };
 
-      // 2. MOSTRAR EL QR Y LA TARJETA DE INMEDIATO (Cero retrasos)
+      // 2. ENVIAR A GOOGLE SHEETS DE FORMA INSTANTÁNEA (Sin bloquear la página)
+      const blob = new Blob([JSON.stringify(datosRegistro)], { type: 'text/plain' });
+      navigator.sendBeacon(SCRIPT_URL, blob);
+
+      // 3. MOSTRAR EL QR Y LA TARJETA AL INSTANTE
       qrContainer.innerHTML = "";
       new QRCode(qrContainer, {
         text: `ID:${folioUnico}|NOMBRE:${nombreCompleto}|TEL:${telefono}`,
@@ -371,16 +374,6 @@
 
       form.style.display = 'none';
       passCard.style.display = 'block';
-
-      // 3. ENVIAR A GOOGLE SHEETS EN SEGUNDO PLANO (Sin bloquear nada)
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(datosRegistro)
-      }).catch(err => {
-        console.log("Envío en segundo plano completado");
-      });
     });
 
     // 4. Descargar Pase como Imagen PNG
