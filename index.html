@@ -309,9 +309,9 @@
       </button>
     </div>
   </div>
-<script>
-    // URL DE TU SCRIPT DE GOOGLE SHEETS ACTUALIZADA
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz4Y4puJgCGI9zvk4u1kHLPKHVOMv-q4h6t8cYzMhG83eeEg1S7z2_lmadd62jX2krZ/exec';
+
+  <script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPmc9-za9af16eikukiBZcnEBJ6wD6crlOWpYC2vDmZKY4SQtVoB8qL8pycXDHs_h7/exec';
 
     const form = document.getElementById('regForm');
     const passCard = document.getElementById('passCard');
@@ -321,10 +321,10 @@
     form.addEventListener('submit', function(e) {
       e.preventDefault();
 
-      btnSubmit.innerText = "Generando...";
+      btnSubmit.innerText = "Enviando registro...";
       btnSubmit.disabled = true;
 
-      // 1. Obtener valores del formulario
+      // 1. Obtener datos
       const nombres = document.getElementById('nombres').value.trim();
       const paterno = document.getElementById('paterno').value.trim();
       const materno = document.getElementById('materno').value.trim();
@@ -345,52 +345,57 @@
       const nombreCompleto = `${nombres} ${paterno} ${materno}`.trim();
       const folioUnico = 'PRI-' + Date.now().toString().slice(-6);
 
-      const datosRegistro = {
-        folio: folioUnico,
-        nombres: nombres,
-        paterno: paterno,
-        materno: materno,
-        fechaNacimiento: fechaNacimiento,
-        cargo: cargo,
-        telefono: telefono,
-        email: email,
-        facebook: facebook,
-        instagram: instagram,
-        tiktok: tiktok,
-        direccion: direccion,
-        municipio: municipio
-      };
+      // 2. Preparar parámetros de envío (compatible con Google Apps Script)
+      const params = new URLSearchParams();
+      params.append('folio', folioUnico);
+      params.append('nombres', nombres);
+      params.append('paterno', paterno);
+      params.append('materno', materno);
+      params.append('fechaNacimiento', fechaNacimiento);
+      params.append('cargo', cargo);
+      params.append('telefono', telefono);
+      params.append('email', email);
+      params.append('facebook', facebook);
+      params.append('instagram', instagram);
+      params.append('tiktok', tiktok);
+      params.append('direccion', direccion);
+      params.append('municipio', municipio);
 
-      // 2. Generar Código QR de inmediato
-      qrContainer.innerHTML = "";
-      new QRCode(qrContainer, {
-        text: `ID:${folioUnico}|NOMBRE:${nombreCompleto}|TEL:${telefono}`,
-        width: 180,
-        height: 180
-      });
-
-      // 3. Llenar la tarjeta visual
-      document.getElementById('cardFullName').innerText = nombreCompleto;
-      document.getElementById('cardRole').innerText = `${cargo} · ${municipio}`;
-
-      // 4. Ocultar el formulario y mostrar la tarjeta de acceso
-      form.style.display = 'none';
-      passCard.style.display = 'block';
-
-      // 5. Enviar datos a Google Sheets en segundo plano sin congelar la interfaz
-      try {
-        fetch(SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(datosRegistro)
+      // Function interna para mostrar el pase
+      function mostrarPase() {
+        qrContainer.innerHTML = "";
+        new QRCode(qrContainer, {
+          text: `ID:${folioUnico}|NOMBRE:${nombreCompleto}|TEL:${telefono}`,
+          width: 180,
+          height: 180
         });
-      } catch (err) {
-        console.log("Error al enviar registro:", err);
+
+        document.getElementById('cardFullName').innerText = nombreCompleto;
+        document.getElementById('cardRole').innerText = `${cargo} · ${municipio}`;
+
+        form.style.display = 'none';
+        passCard.style.display = 'block';
       }
+
+      // 3. Enviar a Google Sheets
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: params.toString()
+      })
+      .then(() => {
+        mostrarPase();
+      })
+      .catch((err) => {
+        console.error('Error al enviar:', err);
+        mostrarPase(); // Muestra el pase aun si hay aviso de red
+      });
     });
 
-    // 6. Descargar Pase como Imagen PNG
+    // Descargar Pase como Imagen
     document.getElementById('downloadBtn').addEventListener('click', function() {
       const downloadBtn = document.getElementById('downloadBtn');
       downloadBtn.style.display = 'none';
