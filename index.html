@@ -312,7 +312,7 @@
 
   <script>
     // URL DE TU SCRIPT DE GOOGLE SHEETS ACTUALIZADA
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxhu9wMq6wYbwAOOKZseOCOVojH3pHmV9Uj8SliY_kKVdE3yVn5d-nBvnaX_NzHz6Go/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz4Y4puJgCGI9zvk4u1kHLPKHVOMv-q4h6t8cYzMhG83eeEg1S7z2_lmadd62jX2krZ/exec';
 
     const form = document.getElementById('regForm');
     const passCard = document.getElementById('passCard');
@@ -363,12 +363,16 @@
       };
 
       // 2. Enviar datos a Google Sheets en segundo plano
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(datosRegistro)
-      }).catch(err => console.log("Registro enviado"));
+     try {
+        fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(datosRegistro)
+        });
+      } catch (err) {
+        console.log("Error enviando datos:", err);
+         }
 
       // 3. Generar Código QR
       qrContainer.innerHTML = "";
