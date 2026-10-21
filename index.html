@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Evento - Sesión Solemne de Instalación</title>
+  
+  <!-- Fuente Google Sans -->
+  <link href="https://fonts.cdnfonts.com/css/google-sans" rel="stylesheet">
+
+  <!-- Librerías de QR e Imagen -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    :root {
+      --pri-red: rgb(224, 0, 24);
+      --pri-dark-red: rgb(180, 0, 18);
+      --bg-gray: #f4f5f7;
+    }
+
+    body {
+      font-family: 'Product Sans', 'Google Sans', Arial, sans-serif;
+      background-color: var(--bg-gray);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      max-width: 480px;
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      overflow: hidden;
+    }
+
+    .header {
+      background-color: var(--pri-red);
+      color: white;
+      text-align: center;
+      padding: 24px 20px 20px 20px;
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 17px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .header p {
+      margin: 8px 0 0 0;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    form {
+      padding: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 14px;
+      font-family: 'Product Sans', 'Google Sans', sans-serif;
+      background-color: white;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--pri-red);
+      outline: none;
+    }
+
+    .date-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .date-row input {
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: var(--pri-red);
+      margin: 18px 0 10px 0;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-submit, .btn-download {
+      width: 100%;
+      background-color: var(--pri-red);
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      text-transform: uppercase;
+      margin-top: 10px;
+      transition: background 0.2s;
+      font-family: 'Product Sans', 'Google Sans', sans-serif;
+    }
+
+    .btn-submit:hover, .btn-download:hover {
+      background-color: var(--pri-dark-red);
+    }
+
+    /* PASE DE ACCESO */
+    #passCard {
+      display: none;
+      background: white;
+      padding: 30px 20px;
+      border-radius: 16px;
+      text-align: center;
+      border: 2px solid #e2e8f0;
+      margin: 20px;
+    }
+
+    .pass-header {
+      color: var(--pri-red);
+      margin-bottom: 15px;
+    }
+
+    .pass-header h3 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .qr-box {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .user-name {
+      font-size: 18px;
+      font-weight: bold;
+      color: #1a202c;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .user-role {
+      font-size: 14px;
+      color: #718096;
+      margin-bottom: 18px;
+    }
+
+    .location-tag {
+      background-color: #fff0f1;
+      color: var(--pri-red);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 13px;
+      display: inline-block;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h2>SESIÓN SOLEMNE DE INSTALACIÓN DEL CONSEJO POLÍTICO ESTATAL Y DE LOS CONSEJOS POLÍTICOS MUNICIPALES</h2>
+      <p>Registro de Asistencia</p>
+    </div>
+
+    <!-- FORMULARIO DE REGISTRO -->
+    <form id="regForm">
+      <div class="form-group">
+        <label>Nombre(s) *</label>
+        <input type="text" id="nombres" required placeholder="Ej. Samantha">
+      </div>
+
+      <div class="form-group">
+        <label>Apellido Paterno *</label>
+        <input type="text" id="paterno" required placeholder="Ej. Jiménez">
+      </div>
+
+      <div class="form-group">
+        <label>Apellido Materno</label>
+        <input type="text" id="materno" placeholder="Ej. Alvarado">
+      </div>
+
+      <!-- FECHA DE NACIMIENTO (DÍA - MES - AÑO) -->
+      <div class="form-group">
+        <label>Fecha de Nacimiento (Día - Mes - Año) *</label>
+        <div class="date-row">
+          <input type="number" id="diaNac" min="1" max="31" placeholder="Día" required style="flex: 1;">
+          
+          <select id="mesNac" required style="flex: 2;">
+            <option value="" disabled selected>Mes</option>
+            <option value="Enero">Enero</option>
+            <option value="Febrero">Febrero</option>
+            <option value="Marzo">Marzo</option>
+            <option value="Abril">Abril</option>
+            <option value="Mayo">Mayo</option>
+            <option value="Junio">Junio</option>
+            <option value="Julio">Julio</option>
+            <option value="Agosto">Agosto</option>
+            <option value="Septiembre">Septiembre</option>
+            <option value="Octubre">Octubre</option>
+            <option value="Noviembre">Noviembre</option>
+            <option value="Diciembre">Diciembre</option>
+          </select>
+
+          <input type="number" id="anioNac" min="1920" max="2026" placeholder="Año" required style="flex: 1.2;">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Cargo partidista (en caso de tenerlo)</label>
+        <input type="text" id="cargo" placeholder="Ej. Seccional del PRI">
+      </div>
+
+      <div class="form-group">
+        <label>Teléfono *</label>
+        <input type="tel" id="telefono" required placeholder="Ej. 6181234567">
+      </div>
+
+      <div class="form-group">
+        <label>Correo Electrónico (Opcional)</label>
+        <input type="email" id="email" placeholder="ejemplo@correo.com">
+      </div>
+
+      <!-- SECCIÓN DE REDES SOCIALES -->
+      <div class="section-title">Redes Sociales (Opcional)</div>
+
+      <div class="form-group">
+        <label>Facebook</label>
+        <input type="text" id="facebook" placeholder="¿Cómo te llamas en Facebook?">
+      </div>
+
+      <div class="form-group">
+        <label>Instagram</label>
+        <input type="text" id="instagram" placeholder="¿Cómo te llamas en Instagram?">
+      </div>
+
+      <div class="form-group">
+        <label>TikTok</label>
+        <input type="text" id="tiktok" placeholder="¿Cómo te llamas en TikTok?">
+      </div>
+
+      <div class="section-title">Ubicación</div>
+
+      <div class="form-group">
+        <label>Dirección (Calle, Número, Colonia/Fracc.) *</label>
+        <input type="text" id="direccion" required placeholder="Calle Hidalgo #123, Col. Centro">
+      </div>
+
+      <div class="form-group">
+        <label>Municipio *</label>
+        <input type="text" id="municipio" required placeholder="Ej. Lerdo">
+      </div>
+
+      <button type="submit" id="btnSubmit" class="btn-submit">Generar Pase de Acceso</button>
+    </form>
+
+    <!-- TARJETA DEL PASE DE ACCESO CON QR -->
+    <div id="passCard">
+      <div class="pass-header">
+        <h3>¡Gracias!</h3>
+        <p style="color:#4a5568; font-size:13px; margin-top:4px;">Tu registro ha sido exitoso.</p>
+      </div>
+
+      <div class="qr-box">
+        <div id="qrcode"></div>
+      </div>
+
+      <div class="user-name" id="cardFullName">NOMBRE COMPLETO</div>
+      <div class="user-role" id="cardRole">Cargo · Municipio</div>
+
+      <div class="location-tag">
+        PASE DE ACCESO AL EVENTO
+      </div>
+
+      <button id="downloadBtn" type="button" class="btn-download" style="margin-top:20px;">
+        Descargar Pase como Imagen
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // URL DE TU SCRIPT DE GOOGLE SHEETS ACTUALIZADA
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxhu9wMq6wYbwAOOKZseOCOVojH3pHmV9Uj8SliY_kKVdE3yVn5d-nBvnaX_NzHz6Go/exec';
+
+    const form = document.getElementById('regForm');
+    const passCard = document.getElementById('passCard');
+    const qrContainer = document.getElementById('qrcode');
+    const btnSubmit = document.getElementById('btnSubmit');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      btnSubmit.innerText = "Generando...";
+      btnSubmit.disabled = true;
+
+      // 1. Obtener valores
+      const nombres = document.getElementById('nombres').value.trim();
+      const paterno = document.getElementById('paterno').value.trim();
+      const materno = document.getElementById('materno').value.trim();
+      const cargo = document.getElementById('cargo').value.trim() || 'Asistente';
+      const telefono = document.getElementById('telefono').value.trim();
+      const email = document.getElementById('email').value.trim() || 'No proporcionado';
+      const facebook = document.getElementById('facebook').value.trim() || 'N/A';
+      const instagram = document.getElementById('instagram').value.trim() || 'N/A';
+      const tiktok = document.getElementById('tiktok').value.trim() || 'N/A';
+      const direccion = document.getElementById('direccion').value.trim();
+      const municipio = document.getElementById('municipio').value.trim();
+
+      const dia = document.getElementById('diaNac').value.padStart(2, '0');
+      const mes = document.getElementById('mesNac').value;
+      const anio = document.getElementById('anioNac').value;
+      const fechaNacimiento = `${dia}/${mes}/${anio}`;
+
+      const nombreCompleto = `${nombres} ${paterno} ${materno}`.trim();
+      const folioUnico = 'PRI-' + Date.now().toString().slice(-6);
+
+      const datosRegistro = {
+        folio: folioUnico,
+        nombres: nombres,
+        paterno: paterno,
+        materno: materno,
+        fechaNacimiento: fechaNacimiento,
+        cargo: cargo,
+        telefono: telefono,
+        email: email,
+        facebook: facebook,
+        instagram: instagram,
+        tiktok: tiktok,
+        direccion: direccion,
+        municipio: municipio
+      };
+
+      // 2. Enviar datos a Google Sheets en segundo plano
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datosRegistro)
+      }).catch(err => console.log("Registro enviado"));
+
+      // 3. Generar Código QR
+      qrContainer.innerHTML = "";
+      new QRCode(qrContainer, {
+        text: `ID:${folioUnico}|NOMBRE:${nombreCompleto}|TEL:${telefono}`,
+        width: 180,
+        height: 180
+      });
+
+      // 4. Llenar los campos visuales de la tarjeta
+      document.getElementById('cardFullName').innerText = nombreCompleto;
+      document.getElementById('cardRole').innerText = `${cargo} · ${municipio}`;
+
+      // 5. Ocultar el formulario y mostrar el pase
+      form.style.display = 'none';
+      passCard.style.display = 'block';
+    });
+
+    // 6. Descargar Pase como Imagen PNG
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+      const downloadBtn = document.getElementById('downloadBtn');
+      downloadBtn.style.display = 'none';
+
+      html2canvas(passCard, { scale: 2 }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'Pase_Acceso_Evento.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+
+        downloadBtn.style.display = 'block';
+      }).catch(err => {
+        console.error(err);
+        downloadBtn.style.display = 'block';
+      });
+    });
+  </script>
+</body>
+</html>
