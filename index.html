@@ -242,6 +242,26 @@
         <input type="text" id="cargo" placeholder="Ej. Seccional del PRI">
       </div>
 
+      <!-- SECTOR U ORGANIZACIÓN -->
+      <div class="form-group">
+        <label>Sector u Organización</label>
+        <select id="sector">
+          <option value="" selected>-- Ninguno / Seleccionar --</option>
+          <option value="CCI">CCI</option>
+          <option value="CNC">CNC</option>
+          <option value="CNOP">CNOP</option>
+          <option value="CROC">CROC</option>
+          <option value="Fundación Colosio">Fundación Colosio</option>
+          <option value="Instituto Jesús Reyes Heroles">Instituto Jesús Reyes Heroles</option>
+          <option value="México Avanza">México Avanza</option>
+          <option value="Movimiento PRI.Mx">Movimiento PRI.Mx</option>
+          <option value="MT">MT</option>
+          <option value="ONMPRI">ONMPRI</option>
+          <option value="Red de Jóvenes por México">Red de Jóvenes por México</option>
+          <option value="Unidad Revolucionaria">Unidad Revolucionaria</option>
+        </select>
+      </div>
+
       <div class="form-group">
         <label>Teléfono *</label>
         <input type="tel" id="telefono" required placeholder="Ej. 6181234567">
@@ -310,7 +330,7 @@
   </div>
 
   <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz4Y4puJgCGI9zvk4u1kHLPKHVOMv-q4h6t8cYzMhG83eeEg1S7z2_lmadd62jX2krZ/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzpILbp4gKu3AiOmM-CFKSojPscOEGVI5ODl7IYn5tBnE8e7iF-m4K4SvVtQWS_1JRj/exec';
 
     const form = document.getElementById('regForm');
     const passCard = document.getElementById('passCard');
@@ -323,6 +343,7 @@
       const paterno = document.getElementById('paterno').value.trim();
       const materno = document.getElementById('materno').value.trim();
       const cargo = document.getElementById('cargo').value.trim() || 'Asistente';
+      const sector = document.getElementById('sector').value || 'N/A';
       const telefono = document.getElementById('telefono').value.trim();
       const email = document.getElementById('email').value.trim() || 'No proporcionado';
       const facebook = document.getElementById('facebook').value.trim() || 'N/A';
@@ -346,6 +367,7 @@
         materno: materno,
         fechaNacimiento: fechaNacimiento,
         cargo: cargo,
+        sector: sector,
         telefono: telefono,
         email: email,
         facebook: facebook,
@@ -367,7 +389,7 @@
 
       // 4. LLENAR TEXTOS Y MOSTRAR TARJETA
       document.getElementById('cardFullName').innerText = nombreCompleto;
-      document.getElementById('cardRole').innerText = `${cargo} · ${municipio}`;
+      document.getElementById('cardRole').innerText = `${cargo} (${sector}) · ${municipio}`;
 
       form.style.display = 'none';
       passCard.style.display = 'block';
