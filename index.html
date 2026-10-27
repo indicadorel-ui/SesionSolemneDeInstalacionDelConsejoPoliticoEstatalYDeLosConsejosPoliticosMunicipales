@@ -359,7 +359,7 @@
       </div>
 
       <div class="qr-box">
-        <img id="qrcodeImg" src="" alt="Código QR" width="180" height="180">
+        <img id="qrcodeImg" src="" alt="Código QR" width="200" height="200">
       </div>
 
       <div class="user-name" id="cardFullName">NOMBRE COMPLETO</div>
@@ -427,14 +427,14 @@
       const blob = new Blob([JSON.stringify(datosRegistro)], { type: 'text/plain' });
       navigator.sendBeacon(SCRIPT_URL, blob);
 
-      // 3. OBTENER FECHA Y HORA ACTUAL DEL REGISTRO
+     // 3. OBTENER FECHA Y HORA ACTUAL DEL REGISTRO
       const ahora = new Date();
       const fechaHoraRegistro = ahora.toLocaleString('es-MX', {
         dateStyle: 'short',
         timeStyle: 'medium'
       });
 
-      // 3.1 GENERAR QR CON TODOS LOS DATOS (INCLUYENDO FECHA Y HORA)
+      // 3.1 GENERAR QR CON TODOS LOS DATOS Y OPTIMIZADO PARA LECTURA
       const textoQR = `Folio: ${folioUnico}
       Registro: ${fechaHoraRegistro}
       Nombre: ${nombreCompleto}
@@ -449,7 +449,8 @@
       Dirección: ${direccion}
       Municipio: ${municipio}`;
 
-      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(textoQR)}`;
+      // Aumentado a 240x240 y agregado nivel de corrección M para mejor lectura
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&ecc=M&data=${encodeURIComponent(textoQR)}`;
       
       document.getElementById('qrcodeImg').src = qrUrl;
       
