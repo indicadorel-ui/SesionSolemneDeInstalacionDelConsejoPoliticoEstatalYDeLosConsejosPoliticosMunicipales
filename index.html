@@ -437,7 +437,7 @@
       // 3.1 GENERAR QR CON TODOS LOS DATOS Y OPTIMIZADO PARA LECTURA
       const textoQR = `Folio: ${folioUnico}
       Registro: ${fechaHoraRegistro}
-      Nombre: ${nombreCompleto};
+      Nombre: ${nombreCompleto}`;
 
       // Aumentado a 240x240 y agregado nivel de corrección M para mejor lectura
       const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&ecc=M&data=${encodeURIComponent(textoQR)}`;
