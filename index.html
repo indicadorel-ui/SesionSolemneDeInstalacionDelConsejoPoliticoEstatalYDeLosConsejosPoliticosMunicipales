@@ -425,12 +425,27 @@
       const blob = new Blob([JSON.stringify(datosRegistro)], { type: 'text/plain' });
       navigator.sendBeacon(SCRIPT_URL, blob);
 
-      // 3. GENERAR QR DIRECTAMENTE CON API EXTERNA (IMPOSIBLE DE CONGELAR)
-      const textoQR = `ID:${folioUnico}|NOMBRE:${nombreCompleto}|TEL:${telefono}`;
+      // 3. OBTENER FECHA Y HORA ACTUAL DEL REGISTRO
+      const ahora = new Date();
+      const fechaHoraRegistro = ahora.toLocaleString('es-MX', {
+        dateStyle: 'short',
+        timeStyle: 'medium'
+      });
+
+      // 3.1 GENERAR QR CON TODOS LOS DATOS (INCLUYENDO FECHA Y HORA)
+      const textoQR = `Folio: ${folioUnico}
+      Registro: ${fechaHoraRegistro}
+      Nombre: ${nombreCompleto}
+      Nacimiento: ${fechaNacimiento}
+      Cargo: ${cargo}
+      Sector: ${sector}
+      Teléfono: ${telefono}
+      Municipio: ${municipio}`;
+
       const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(textoQR)}`;
       
       document.getElementById('qrcodeImg').src = qrUrl;
-
+      
       // 4. LLENAR TEXTOS Y MOSTRAR TARJETA
       document.getElementById('cardFullName').innerText = nombreCompleto;
       document.getElementById('cardRole').innerText = `${cargo} (${sector}) · ${municipio}`;
