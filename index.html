@@ -20,7 +20,7 @@
 
     body {
       font-family: 'Product Sans', 'Google Sans', Arial, sans-serif;
-      background-color: rgb(224, 0, 24); /* <-- Cambiado a rojo priísta para el fondo de la pantalla */
+      background-color: rgb(224, 0, 24);
       margin: 0;
       padding: 20px;
       display: flex;
@@ -38,9 +38,9 @@
       overflow: hidden;
     }
 
-     .header {
-      background-color: #ffffff; /* Fondo blanco */
-      color: #000000;            /* Texto negro */
+    .header {
+      background-color: #ffffff;
+      color: #000000;
       text-align: center;
       padding: 24px 20px 20px 20px;
     }
@@ -143,27 +143,27 @@
     }
 
     /* BOTÓN WHATSAPP */
-  .btn-whatsapp {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: #25D366;
-    color: white;
-    text-decoration: none;
-    padding: 14px;
-    font-size: 15px;
-    font-weight: bold;
-    border-radius: 8px;
-    text-transform: uppercase;
-    margin-top: 15px;
-    transition: background 0.2s;
-    font-family: 'Product Sans', 'Google Sans', sans-serif;
-    text-align: center;
-  }
+    .btn-whatsapp {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      background-color: #25D366;
+      color: white;
+      text-decoration: none;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: bold;
+      border-radius: 8px;
+      text-transform: uppercase;
+      margin-top: 15px;
+      transition: background 0.2s;
+      font-family: 'Product Sans', 'Google Sans', sans-serif;
+      text-align: center;
+    }
 
-  .btn-whatsapp:hover {
-    background-color: #1da851;
-  }
+    .btn-whatsapp:hover {
+      background-color: #1da851;
+    }
 
     /* PASE DE ACCESO */
     #passCard {
@@ -222,284 +222,280 @@
 <body>
 
 <div class="container">
-<div class="header">
-      <img src="PRI.png" alt="PRI" class="header-logo">
-
-      <h2>SESIÓN SOLEMNE DE INSTALACIÓN DEL CONSEJO POLÍTICO ESTATAL Y DE LOS CONSEJOS POLÍTICOS MUNICIPALES</h2>
-      <p style="font-size: 16px; font-weight: bold; margin-top: 12px; color: #000000;">
-        Genera y conserva tu pase de acceso QR ya que será indispensable para poder ingresar.
-      </p>
-    </div>
-
-    <!-- FORMULARIO DE REGISTRO -->
-    <form id="regForm">
-      <div class="form-group">
-        <label>Nombre(s) *</label>
-        <input type="text" id="nombres" required placeholder="Ej. Samantha">
-      </div>
-
-      <div class="form-group">
-        <label>Apellido Paterno *</label>
-        <input type="text" id="paterno" required placeholder="Ej. Jiménez">
-      </div>
-
-      <div class="form-group">
-        <label>Apellido Materno</label>
-        <input type="text" id="materno" placeholder="Ej. Alvarado">
-      </div>
-
-      <!-- FECHA DE NACIMIENTO (DÍA - MES - AÑO) -->
-      <div class="form-group">
-        <label>Fecha de Nacimiento (Día - Mes - Año) *</label>
-        <div class="date-row">
-          <input type="number" id="diaNac" min="1" max="31" placeholder="Día" required style="flex: 1;">
-          
-          <select id="mesNac" required style="flex: 2;">
-            <option value="" disabled selected>Mes</option>
-            <option value="Enero">Enero</option>
-            <option value="Febrero">Febrero</option>
-            <option value="Marzo">Marzo</option>
-            <option value="Abril">Abril</option>
-            <option value="Mayo">Mayo</option>
-            <option value="Junio">Junio</option>
-            <option value="Julio">Julio</option>
-            <option value="Agosto">Agosto</option>
-            <option value="Septiembre">Septiembre</option>
-            <option value="Octubre">Octubre</option>
-            <option value="Noviembre">Noviembre</option>
-            <option value="Diciembre">Diciembre</option>
-          </select>
-
-          <input type="number" id="anioNac" min="1920" max="2026" placeholder="Año" required style="flex: 1.2;">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Cargo partidista (en caso de tenerlo)</label>
-        <input type="text" id="cargo" placeholder="Ej. Seccional del PRI">
-      </div>
-
-      <!-- SECTOR U ORGANIZACIÓN -->
-      <div class="form-group">
-        <label>Sector u Organización</label>
-        <select id="sector">
-          <option value="" selected>-- Ninguno / Seleccionar --</option>
-          <option value="CCI">CCI</option>
-          <option value="CNC">CNC</option>
-          <option value="CNOP">CNOP</option>
-          <option value="CROC">CROC</option>
-          <option value="CTM">CTM</option>
-          <option value="Fundación Colosio">Fundación Colosio</option>
-          <option value="Instituto Jesús Reyes Heroles">Instituto Jesús Reyes Heroles</option>
-          <option value="México Avanza">México Avanza</option>
-          <option value="Movimiento PRI.Mx">Movimiento PRI.Mx</option>
-          <option value="MT">MT</option>
-          <option value="ONMPRI">ONMPRI</option>
-          <option value="Red de Jóvenes por México">Red de Jóvenes por México</option>
-          <option value="Unidad Revolucionaria">Unidad Revolucionaria</option>
-          <option value="Líder Seccional">Líder Seccional</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Teléfono *</label>
-        <input type="tel" id="telefono" required placeholder="Ej. 6181234567">
-      </div>
-
-      <div class="form-group">
-        <label>Correo Electrónico (Opcional)</label>
-        <input type="email" id="email" placeholder="ejemplo@correo.com">
-      </div>
-
-      <!-- SECCIÓN DE REDES SOCIALES -->
-      <div class="section-title">Redes Sociales (Opcional)</div>
-
-      <div class="form-group">
-        <label>Facebook</label>
-        <input type="text" id="facebook" placeholder="¿Cómo te llamas en Facebook?">
-      </div>
-
-      <div class="form-group">
-        <label>Instagram</label>
-        <input type="text" id="instagram" placeholder="¿Cómo te llamas en Instagram?">
-      </div>
-
-      <div class="form-group">
-        <label>TikTok</label>
-        <input type="text" id="tiktok" placeholder="¿Cómo te llamas en TikTok?">
-      </div>
-
-      <div class="section-title">Ubicación</div>
-
-      <div class="form-group">
-        <label>Dirección (Calle, Número, Colonia/Fracc.) *</label>
-        <input type="text" id="direccion" required placeholder="Calle Hidalgo #123, Col. Centro">
-      </div>
-
-      <div class="form-group">
-        <label>Municipio *</label>
-        <select id="municipio" required>
-          <option value="" disabled selected>-- Selecciona un municipio --</option>
-          <option value="Canatlán">Canatlán</option>
-          <option value="Canelas">Canelas</option>
-          <option value="Coneto de Comonfort">Coneto de Comonfort</option>
-          <option value="Cuencamé">Cuencamé</option>
-          <option value="Durango">Durango</option>
-          <option value="El Oro">El Oro</option>
-          <option value="General Simón Bolívar">General Simón Bolívar</option>
-          <option value="Gómez Palacio">Gómez Palacio</option>
-          <option value="Guadalupe Victoria">Guadalupe Victoria</option>
-          <option value="Guanaceví">Guanaceví</option>
-          <option value="Hidalgo">Hidalgo</option>
-          <option value="Indé">Indé</option>
-          <option value="Lerdo">Lerdo</option>
-          <option value="Mapimí">Mapimí</option>
-          <option value="Mezquital">Mezquital</option>
-          <option value="Nazas">Nazas</option>
-          <option value="Nombre de Dios">Nombre de Dios</option>
-          <option value="Nuevo Ideal">Nuevo Ideal</option>
-          <option value="Ocampo">Ocampo</option>
-          <option value="Otáez">Otáez</option>
-          <option value="Pánuco de Coronado">Pánuco de Coronado</option>
-          <option value="Peñón Blanco">Peñón Blanco</option>
-          <option value="Poanas">Poanas</option>
-          <option value="Pueblo Nuevo">Pueblo Nuevo</option>
-          <option value="Rodeo">Rodeo</option>
-          <option value="San Bernardo">San Bernardo</option>
-          <option value="San Dimas">San Dimas</option>
-          <option value="San Juan de Guadalupe">San Juan de Guadalupe</option>
-          <option value="San Juan del Río">San Juan del Río</option>
-          <option value="San Luis del Cordero">San Luis del Cordero</option>
-          <option value="San Pedro del Gallo">San Pedro del Gallo</option>
-          <option value="Santa Clara">Santa Clara</option>
-          <option value="Santiago Papasquiaro">Santiago Papasquiaro</option>
-          <option value="Súchil">Súchil</option>
-          <option value="Tamazula">Tamazula</option>
-          <option value="Tepehuanes">Tepehuanes</option>
-          <option value="Tlahualilo">Tlahualilo</option>
-          <option value="Topia">Topia</option>
-          <option value="Vicente Guerrero">Vicente Guerrero</option>
-        </select>
-      </div>
-
-     <button type="submit" id="btnSubmit" class="btn-submit">GENERAR PASE DE ACCESO AL EVENTO</button>
-
-     <!-- Enlace de WhatsApp -->
-     <a href="https://whatsapp.com/channel/0029Vb9qTG02f3EBPHtCKL05" target="_blank" class="btn-whatsapp">
-     ¡Dale click y únete a nuestro canal de WhatsApp!
-     </a>
-     <img src="LOGO INTEDI.png" alt="LOGO INTEDI" class="footer-logo">
-
-    </form>
-
-    <!-- TARJETA DEL PASE DE ACCESO CON QR -->
-    <div id="passCard">
-      <div class="pass-header">
-        <h3>¡Gracias!</h3>
-        <p style="color:#4a5568; font-size:13px; margin-top:4px;">Tu registro ha sido exitoso.</p>
-      </div>
-
-      <div class="qr-box">
-        <img id="qrcodeImg" src="" alt="Código QR" width="200" height="200">
-      </div>
-
-      <div class="user-name" id="cardFullName">NOMBRE COMPLETO</div>
-      <div class="user-role" id="cardRole">Cargo · Municipio</div>
-
-      <div class="location-tag">
-        PASE DE ACCESO AL EVENTO
-      </div>
-
-      <button id="downloadBtn" type="button" class="btn-download" style="margin-top:20px;">
-        Descargar Pase como Imagen
-      </button>
-    </div>
+  <div class="header">
+    <img src="PRI.png" alt="PRI" class="header-logo">
+    <h2>SESIÓN SOLEMNE DE INSTALACIÓN DEL CONSEJO POLÍTICO ESTATAL Y DE LOS CONSEJOS POLÍTICOS MUNICIPALES</h2>
+    <p style="font-size: 16px; font-weight: bold; margin-top: 12px; color: #000000;">
+      Genera y conserva tu pase de acceso QR ya que será indispensable para poder ingresar.
+    </p>
   </div>
 
-  <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzpILbp4gKu3AiOmM-CFKSojPscOEGVI5ODl7IYn5tBnE8e7iF-m4K4SvVtQWS_1JRj/exec';
+  <!-- FORMULARIO DE REGISTRO -->
+  <form id="regForm">
+    <div class="form-group">
+      <label>Nombre(s) *</label>
+      <input type="text" id="nombres" required placeholder="Ej. Samantha">
+    </div>
 
-    const form = document.getElementById('regForm');
-    const passCard = document.getElementById('passCard');
+    <div class="form-group">
+      <label>Apellido Paterno *</label>
+      <input type="text" id="paterno" required placeholder="Ej. Jiménez">
+    </div>
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
+    <div class="form-group">
+      <label>Apellido Materno</label>
+      <input type="text" id="materno" placeholder="Ej. Alvarado">
+    </div>
 
-      // 1. Obtener valores
-      const nombres = document.getElementById('nombres').value.trim();
-      const paterno = document.getElementById('paterno').value.trim();
-      const materno = document.getElementById('materno').value.trim();
-      const cargo = document.getElementById('cargo').value.trim() || 'Asistente';
-      const sector = document.getElementById('sector').value || 'N/A';
-      const telefono = document.getElementById('telefono').value.trim();
-      const email = document.getElementById('email').value.trim() || 'No proporcionado';
-      const facebook = document.getElementById('facebook').value.trim() || 'N/A';
-      const instagram = document.getElementById('instagram').value.trim() || 'N/A';
-      const tiktok = document.getElementById('tiktok').value.trim() || 'N/A';
-      const direccion = document.getElementById('direccion').value.trim();
-      const municipio = document.getElementById('municipio').value.trim();
+    <!-- FECHA DE NACIMIENTO (DÍA - MES - AÑO) -->
+    <div class="form-group">
+      <label>Fecha de Nacimiento (Día - Mes - Año) *</label>
+      <div class="date-row">
+        <input type="number" id="diaNac" min="1" max="31" placeholder="Día" required style="flex: 1;">
+        
+        <select id="mesNac" required style="flex: 2;">
+          <option value="" disabled selected>Mes</option>
+          <option value="Enero">Enero</option>
+          <option value="Febrero">Febrero</option>
+          <option value="Marzo">Marzo</option>
+          <option value="Abril">Abril</option>
+          <option value="Mayo">Mayo</option>
+          <option value="Junio">Junio</option>
+          <option value="Julio">Julio</option>
+          <option value="Agosto">Agosto</option>
+          <option value="Septiembre">Septiembre</option>
+          <option value="Octubre">Octubre</option>
+          <option value="Noviembre">Noviembre</option>
+          <option value="Diciembre">Diciembre</option>
+        </select>
 
-      const dia = document.getElementById('diaNac').value.padStart(2, '0');
-      const mes = document.getElementById('mesNac').value;
-      const anio = document.getElementById('anioNac').value;
-      const fechaNacimiento = `${dia}/${mes}/${anio}`;
+        <input type="number" id="anioNac" min="1920" max="2026" placeholder="Año" required style="flex: 1.2;">
+      </div>
+    </div>
 
-      const nombreCompleto = `${nombres} ${paterno} ${materno}`.trim();
-      const folioUnico = 'PRI-' + Date.now().toString().slice(-6);
+    <div class="form-group">
+      <label>Cargo partidista (en caso de tenerlo)</label>
+      <input type="text" id="cargo" placeholder="Ej. Seccional del PRI">
+    </div>
 
-      const datosRegistro = {
-        folio: folioUnico,
-        nombres: nombres,
-        paterno: paterno,
-        materno: materno,
-        fechaNacimiento: fechaNacimiento,
-        cargo: cargo,
-        sector: sector,
-        telefono: telefono,
-        email: email,
-        facebook: facebook,
-        instagram: instagram,
-        tiktok: tiktok,
-        direccion: direccion,
-        municipio: municipio
-      };
+    <!-- SECTOR U ORGANIZACIÓN -->
+    <div class="form-group">
+      <label>Sector u Organización</label>
+      <select id="sector">
+        <option value="" selected>-- Ninguno / Seleccionar --</option>
+        <option value="CCI">CCI</option>
+        <option value="CNC">CNC</option>
+        <option value="CNOP">CNOP</option>
+        <option value="CROC">CROC</option>
+        <option value="CTM">CTM</option>
+        <option value="Fundación Colosio">Fundación Colosio</option>
+        <option value="Instituto Jesús Reyes Heroles">Instituto Jesús Reyes Heroles</option>
+        <option value="México Avanza">México Avanza</option>
+        <option value="Movimiento PRI.Mx">Movimiento PRI.Mx</option>
+        <option value="MT">MT</option>
+        <option value="ONMPRI">ONMPRI</option>
+        <option value="Red de Jóvenes por México">Red de Jóvenes por México</option>
+        <option value="Unidad Revolucionaria">Unidad Revolucionaria</option>
+        <option value="Líder Seccional">Líder Seccional</option>
+      </select>
+    </div>
 
-      // 2. ENVIAR A GOOGLE SHEETS EN SEGUNDO PLANO
-      const blob = new Blob([JSON.stringify(datosRegistro)], { type: 'text/plain' });
-      navigator.sendBeacon(SCRIPT_URL, blob);
+    <div class="form-group">
+      <label>Teléfono *</label>
+      <input type="tel" id="telefono" required placeholder="Ej. 6181234567">
+    </div>
 
-     // 3. OBTENER FECHA Y HORA ACTUAL DEL REGISTRO
-      const ahora = new Date();
-      const fechaHoraRegistro = ahora.toLocaleString('es-MX', {
-        dateStyle: 'short',
-        timeStyle: 'medium'
-      });
+    <div class="form-group">
+      <label>Correo Electrónico (Opcional)</label>
+      <input type="email" id="email" placeholder="ejemplo@correo.com">
+    </div>
 
-      // 3.1 GENERAR QR CON TODOS LOS DATOS Y OPTIMIZADO PARA LECTURA
-      const textoQR = `Folio: ${folioUnico}
-      Registro: ${fechaHoraRegistro}
-      Nombre: ${nombreCompleto}`;
+    <!-- SECCIÓN DE REDES SOCIALES -->
+    <div class="section-title">Redes Sociales (Opcional)</div>
 
-      // Aumentado a 240x240 y agregado nivel de corrección M para mejor lectura
-      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&ecc=M&data=${encodeURIComponent(textoQR)}`;
-      
-      document.getElementById('qrcodeImg').src = qrUrl;
-      
-      // 4. LLENAR TEXTOS Y MOSTRAR TARJETA
-      document.getElementById('cardFullName').innerText = nombreCompleto;
-      document.getElementById('cardRole').innerText = `${cargo} (${sector}) · ${municipio}`;
+    <div class="form-group">
+      <label>Facebook</label>
+      <input type="text" id="facebook" placeholder="¿Cómo te llamas en Facebook?">
+    </div>
 
-      form.style.display = 'none';
-      passCard.style.display = 'block';
+    <div class="form-group">
+      <label>Instagram</label>
+      <input type="text" id="instagram" placeholder="¿Cómo te llamas en Instagram?">
+    </div>
+
+    <div class="form-group">
+      <label>TikTok</label>
+      <input type="text" id="tiktok" placeholder="¿Cómo te llamas en TikTok?">
+    </div>
+
+    <div class="section-title">Ubicación</div>
+
+    <div class="form-group">
+      <label>Dirección (Calle, Número, Colonia/Fracc.) *</label>
+      <input type="text" id="direccion" required placeholder="Calle Hidalgo #123, Col. Centro">
+    </div>
+
+    <div class="form-group">
+      <label>Municipio *</label>
+      <select id="municipio" required>
+        <option value="" disabled selected>-- Selecciona un municipio --</option>
+        <option value="Canatlán">Canatlán</option>
+        <option value="Canelas">Canelas</option>
+        <option value="Coneto de Comonfort">Coneto de Comonfort</option>
+        <option value="Cuencamé">Cuencamé</option>
+        <option value="Durango">Durango</option>
+        <option value="El Oro">El Oro</option>
+        <option value="General Simón Bolívar">General Simón Bolívar</option>
+        <option value="Gómez Palacio">Gómez Palacio</option>
+        <option value="Guadalupe Victoria">Guadalupe Victoria</option>
+        <option value="Guanaceví">Guanaceví</option>
+        <option value="Hidalgo">Hidalgo</option>
+        <option value="Indé">Indé</option>
+        <option value="Lerdo">Lerdo</option>
+        <option value="Mapimí">Mapimí</option>
+        <option value="Mezquital">Mezquital</option>
+        <option value="Nazas">Nazas</option>
+        <option value="Nombre de Dios">Nombre de Dios</option>
+        <option value="Nuevo Ideal">Nuevo Ideal</option>
+        <option value="Ocampo">Ocampo</option>
+        <option value="Otáez">Otáez</option>
+        <option value="Pánuco de Coronado">Pánuco de Coronado</option>
+        <option value="Peñón Blanco">Peñón Blanco</option>
+        <option value="Poanas">Poanas</option>
+        <option value="Pueblo Nuevo">Pueblo Nuevo</option>
+        <option value="Rodeo">Rodeo</option>
+        <option value="San Bernardo">San Bernardo</option>
+        <option value="San Dimas">San Dimas</option>
+        <option value="San Juan de Guadalupe">San Juan de Guadalupe</option>
+        <option value="San Juan del Río">San Juan del Río</option>
+        <option value="San Luis del Cordero">San Luis del Cordero</option>
+        <option value="San Pedro del Gallo">San Pedro del Gallo</option>
+        <option value="Santa Clara">Santa Clara</option>
+        <option value="Santiago Papasquiaro">Santiago Papasquiaro</option>
+        <option value="Súchil">Súchil</option>
+        <option value="Tamazula">Tamazula</option>
+        <option value="Tepehuanes">Tepehuanes</option>
+        <option value="Tlahualilo">Tlahualilo</option>
+        <option value="Topia">Topia</option>
+        <option value="Vicente Guerrero">Vicente Guerrero</option>
+      </select>
+    </div>
+
+    <button type="submit" id="btnSubmit" class="btn-submit">GENERAR PASE DE ACCESO AL EVENTO</button>
+
+    <!-- Enlace de WhatsApp -->
+    <a href="https://whatsapp.com/channel/0029Vb9qTG02f3EBPHtCKL05" target="_blank" class="btn-whatsapp">
+      ¡Dale click y únete a nuestro canal de WhatsApp!
+    </a>
+    <img src="LOGO INTEDI.png" alt="LOGO INTEDI" class="footer-logo">
+
+  </form>
+
+  <!-- TARJETA DEL PASE DE ACCESO CON QR -->
+  <div id="passCard">
+    <div class="pass-header">
+      <h3>¡Gracias!</h3>
+      <p style="color:#4a5568; font-size:13px; margin-top:4px;">Tu registro ha sido exitoso.</p>
+    </div>
+
+    <div class="qr-box">
+      <img id="qrcodeImg" src="" alt="Código QR" width="200" height="200">
+    </div>
+
+    <div class="user-name" id="cardFullName">NOMBRE COMPLETO</div>
+    <div class="user-role" id="cardRole">Cargo · Municipio</div>
+
+    <div class="location-tag">
+      PASE DE ACCESO AL EVENTO
+    </div>
+
+    <button id="downloadBtn" type="button" class="btn-download" style="margin-top:20px;">
+      Descargar Pase como Imagen
+    </button>
+  </div>
+</div>
+
+<script>
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzpILbp4gKu3AiOmM-CFKSojPscOEGVI5ODl7IYn5tBnE8e7iF-m4K4SvVtQWS_1JRj/exec';
+
+  const form = document.getElementById('regForm');
+  const passCard = document.getElementById('passCard');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // 1. Obtener valores
+    const nombres = document.getElementById('nombres').value.trim();
+    const paterno = document.getElementById('paterno').value.trim();
+    const materno = document.getElementById('materno').value.trim();
+    const cargo = document.getElementById('cargo').value.trim() || 'Asistente';
+    const sector = document.getElementById('sector').value || 'N/A';
+    const telefono = document.getElementById('telefono').value.trim();
+    const email = document.getElementById('email').value.trim() || 'No proporcionado';
+    const facebook = document.getElementById('facebook').value.trim() || 'N/A';
+    const instagram = document.getElementById('instagram').value.trim() || 'N/A';
+    const tiktok = document.getElementById('tiktok').value.trim() || 'N/A';
+    const direccion = document.getElementById('direccion').value.trim();
+    const municipio = document.getElementById('municipio').value.trim();
+
+    const dia = document.getElementById('diaNac').value.padStart(2, '0');
+    const mes = document.getElementById('mesNac').value;
+    const anio = document.getElementById('anioNac').value;
+    const fechaNacimiento = `${dia}/${mes}/${anio}`;
+
+    const nombreCompleto = `${nombres} ${paterno} ${materno}`.trim();
+    const folioUnico = 'PRI-' + Date.now().toString().slice(-6);
+
+    const datosRegistro = {
+      folio: folioUnico,
+      nombres: nombres,
+      paterno: paterno,
+      materno: materno,
+      fechaNacimiento: fechaNacimiento,
+      cargo: cargo,
+      sector: sector,
+      telefono: telefono,
+      email: email,
+      facebook: facebook,
+      instagram: instagram,
+      tiktok: tiktok,
+      direccion: direccion,
+      municipio: municipio
+    };
+
+    // 2. ENVIAR A GOOGLE SHEETS EN SEGUNDO PLANO
+    const blob = new Blob([JSON.stringify(datosRegistro)], { type: 'text/plain' });
+    navigator.sendBeacon(SCRIPT_URL, blob);
+
+    // 3. OBTENER FECHA Y HORA ACTUAL DEL REGISTRO
+    const ahora = new Date();
+    const fechaHoraRegistro = ahora.toLocaleString('es-MX', {
+      dateStyle: 'short',
+      timeStyle: 'medium'
     });
+
+    // 3.1 GENERAR QR CON TODOS LOS DATOS Y OPTIMIZADO PARA LECTURA
+    const textoQR = `Folio: ${folioUnico}
+Registro: ${fechaHoraRegistro}
+Nombre: ${nombreCompleto}`;
+
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&ecc=M&data=${encodeURIComponent(textoQR)}`;
+    
+    document.getElementById('qrcodeImg').src = qrUrl;
+    
+    // 4. LLENAR TEXTOS Y MOSTRAR TARJETA
+    document.getElementById('cardFullName').innerText = nombreCompleto;
+    document.getElementById('cardRole').innerText = `${cargo} (${sector}) · ${municipio}`;
+
+    form.style.display = 'none';
+    passCard.style.display = 'block';
+  });
 
   // 5. Descargar Pase como Imagen PNG
   document.getElementById('downloadBtn').addEventListener('click', function() {
     const downloadBtn = document.getElementById('downloadBtn');
-    const waBtn = document.querySelector('#passCard .btn-whatsapp');
 
     downloadBtn.style.display = 'none';
-    if(waBtn) waBtn.style.display = 'none';
 
     html2canvas(passCard, { scale: 2, useCORS: true }).then(canvas => {
       const link = document.createElement('a');
@@ -508,14 +504,11 @@
       link.click();
 
       downloadBtn.style.display = 'block';
-      if(waBtn) waBtn.style.display = 'block';
     }).catch(err => {
       console.error(err);
       downloadBtn.style.display = 'block';
-      if(waBtn) waBtn.style.display = 'block';
     });
   });
-    
-  </script>
+</script>
 </body>
 </html>
