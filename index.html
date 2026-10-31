@@ -142,6 +142,29 @@
       background-color: var(--pri-dark-red);
     }
 
+    /* BOTÓN WHATSAPP */
+  .btn-whatsapp {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #25D366;
+    color: white;
+    text-decoration: none;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-transform: uppercase;
+    margin-top: 15px;
+    transition: background 0.2s;
+    font-family: 'Product Sans', 'Google Sans', sans-serif;
+    text-align: center;
+  }
+
+  .btn-whatsapp:hover {
+    background-color: #1da851;
+  }
+
     /* PASE DE ACCESO */
     #passCard {
       display: none;
@@ -360,6 +383,10 @@
       </div>
 
       <button type="submit" id="btnSubmit" class="btn-submit">GENERAR PASE DE ACCESO AL EVENTO</button>
+      <!-- BOTÓN CANAL WHATSAPP -->
+    <a href="https://whatsapp.com/channel/0029Vb9qTG02f3EBPHtCKL05" target="_blank" class="btn-whatsapp">
+      ¡Dale click y únete a nuestro canal de WhatsApp!
+    </a>
       <img src="LOGO INTEDI.png" alt="LOGO INTEDI" class="footer-logo">
 
     </form>
@@ -465,23 +492,29 @@
       passCard.style.display = 'block';
     });
 
-    // 5. Descargar Pase como Imagen PNG
-    document.getElementById('downloadBtn').addEventListener('click', function() {
-      const downloadBtn = document.getElementById('downloadBtn');
-      downloadBtn.style.display = 'none';
+  // 5. Descargar Pase como Imagen PNG
+  document.getElementById('downloadBtn').addEventListener('click', function() {
+    const downloadBtn = document.getElementById('downloadBtn');
+    const waBtn = document.querySelector('#passCard .btn-whatsapp');
 
-      html2canvas(passCard, { scale: 2, useCORS: true }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'Pase_Acceso_Evento.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
+    downloadBtn.style.display = 'none';
+    if(waBtn) waBtn.style.display = 'none';
 
-        downloadBtn.style.display = 'block';
-      }).catch(err => {
-        console.error(err);
-        downloadBtn.style.display = 'block';
-      });
+    html2canvas(passCard, { scale: 2, useCORS: true }).then(canvas => {
+      const link = document.createElement('a');
+      link.download = 'Pase_Acceso_Evento.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+
+      downloadBtn.style.display = 'block';
+      if(waBtn) waBtn.style.display = 'block';
+    }).catch(err => {
+      console.error(err);
+      downloadBtn.style.display = 'block';
+      if(waBtn) waBtn.style.display = 'block';
     });
+  });
+    
   </script>
 </body>
 </html>
