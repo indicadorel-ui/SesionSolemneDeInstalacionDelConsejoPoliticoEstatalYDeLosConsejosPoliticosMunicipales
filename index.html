@@ -463,9 +463,15 @@
       municipio: municipio
     };
 
-    // 2. ENVIAR A GOOGLE SHEETS EN SEGUNDO PLANO
-    const blob = new Blob([JSON.stringify(datosRegistro)], { type: 'text/plain' });
-    navigator.sendBeacon(SCRIPT_URL, blob);
+    // 2. ENVIAR A GOOGLE SHEETS COMPATIBLE CON MÓVILES (Fetch en modo no-cors)
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'text/plain'
+      },
+      body: JSON.stringify(datosRegistro)
+    }).catch(err => console.error('Error enviando datos:', err));
 
     // 3. OBTENER FECHA Y HORA ACTUAL DEL REGISTRO
     const ahora = new Date();
@@ -475,9 +481,7 @@
     });
 
     // 3.1 GENERAR QR CON TODOS LOS DATOS Y OPTIMIZADO PARA LECTURA
-    const textoQR = `Folio: ${folioUnico}
-Registro: ${fechaHoraRegistro}
-Nombre: ${nombreCompleto}`;
+    const textoQR = `Folio: ${folioUnico}\nRegistro: ${fechaHoraRegistro}\nNombre: ${nombreCompleto}`;
 
     const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&ecc=M&data=${encodeURIComponent(textoQR)}`;
     
